@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3D Heart</title>
+</head>
+<body>
+
+<canvas id="myCanvas" width="600" height="500"></canvas>
+
+<script>
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+
+// Background
+let bg = ctx.createLinearGradient(0,0,600,500);
+bg.addColorStop(0,"#ffd6e7");
+bg.addColorStop(1,"#fff5f8");
+
+ctx.fillStyle = bg;
+ctx.fillRect(0,0,600,500);
+
+// 3D Shadow
+ctx.shadowColor = "rgba(0,0,0,0.4)";
+ctx.shadowBlur = 20;
+ctx.shadowOffsetX = 10;
+ctx.shadowOffsetY = 10;
+
+// Heart Gradient
+let heartGradient = ctx.createLinearGradient(180,150,320,330);
+heartGradient.addColorStop(0,"#ff8080");
+heartGradient.addColorStop(1,"#cc0000");
+
+ctx.fillStyle = heartGradient;
+
+ctx.beginPath();
+ctx.moveTo(250,200);
+ctx.bezierCurveTo(250,150,180,150,180,220);
+ctx.bezierCurveTo(180,280,250,330,250,330);
+ctx.bezierCurveTo(250,330,320,280,320,220);
+ctx.bezierCurveTo(320,150,250,150,250,200);
+ctx.fill();
+
+// Text
+ctx.shadowBlur = 0;
+ctx.fillStyle = "#333";
+ctx.font = "bold 30px Arial";
+ctx.fillText("Happy Best Friend Day ", 120, 420);
+
+ctx.font = "20px Arial";
+ctx.fillText("Forever Friends ", 220, 460);
+</script>
+
+</body>
+</html>

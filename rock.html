@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Rock Paper Scissors</title>
+	<style>
+		:root {
+			color-scheme: dark;
+			--bg-1: #0f172a;
+			--bg-2: #111827;
+			--panel: rgba(15, 23, 42, 0.78);
+			--panel-border: rgba(148, 163, 184, 0.2);
+			--text: #e5eefb;
+			--muted: #94a3b8;
+			--accent: #f97316;
+			--accent-2: #fb7185;
+			--win: #22c55e;
+			--lose: #ef4444;
+			--draw: #f59e0b;
+			--shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+			color: var(--text);
+			background:
+				radial-gradient(circle at top, rgba(249, 115, 22, 0.28), transparent 32%),
+				radial-gradient(circle at 20% 20%, rgba(251, 113, 133, 0.2), transparent 28%),
+				linear-gradient(135deg, var(--bg-1), var(--bg-2));
+			display: grid;
+			place-items: center;
+			padding: 24px;
+		}
+
+		.app {
+			width: min(100%, 980px);
+			background: var(--panel);
+			border: 1px solid var(--panel-border);
+			border-radius: 28px;
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(18px);
+			overflow: hidden;
+		}
+
+		.hero {
+			padding: 32px 32px 20px;
+			display: grid;
+			gap: 12px;
+			border-bottom: 1px solid var(--panel-border);
+		}
+
+		.eyebrow {
+			text-transform: uppercase;
+			letter-spacing: 0.28em;
+			font-size: 0.78rem;
+			color: var(--accent);
+			margin: 0;
+		}
+
+		h1 {
+			margin: 0;
+			font-size: clamp(2rem, 4vw, 4rem);
+			line-height: 1;
+		}
+
+		.subtitle {
+			margin: 0;
+			max-width: 60ch;
+			color: var(--muted);
+			font-size: 1rem;
+		}
+
+		.content {
+			display: grid;
+			grid-template-columns: 1.1fr 0.9fr;
+			gap: 24px;
+			padding: 28px 32px 32px;
+		}
+
+		.panel {
+			border: 1px solid var(--panel-border);
+			border-radius: 24px;
+			background: rgba(15, 23, 42, 0.6);
+			padding: 22px;
+		}
+
+		.choices {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 14px;
+			margin-top: 18px;
+		}
+
+		.choice {
+			border: 1px solid var(--panel-border);
+			border-radius: 18px;
+			background: linear-gradient(180deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+			color: var(--text);
+			padding: 18px 12px;
+			min-height: 108px;
+			cursor: pointer;
+			transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+			display: grid;
+			place-items: center;
+			gap: 8px;
+			font: inherit;
+		}
+
+		.choice:hover,
+		.choice:focus-visible {
+			transform: translateY(-3px);
+			border-color: rgba(249, 115, 22, 0.8);
+			box-shadow: 0 14px 30px rgba(249, 115, 22, 0.16);
+			outline: none;
+		}
+
+		.emoji {
+			font-size: 2.2rem;
+			line-height: 1;
+		}
+
+		.label {
+			font-size: 0.98rem;
+			color: var(--muted);
+		}
+
+		.status {
+			margin-top: 18px;
+			padding: 16px 18px;
+			border-radius: 18px;
+			background: rgba(2, 6, 23, 0.55);
+			border: 1px solid var(--panel-border);
+			display: grid;
+			gap: 8px;
+		}
+
+		.status strong {
+			font-size: 1.15rem;
+		}
+
+		.status p {
+			margin: 0;
+			color: var(--muted);
+		}
+
+		.scoreboard {
+			display: grid;
+			gap: 14px;
+		}
+
+		.score-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 12px;
+		}
+
+		.score-card {
+			border-radius: 18px;
+			background: rgba(2, 6, 23, 0.55);
+			border: 1px solid var(--panel-border);
+			padding: 16px;
+		}
+
+		.score-card span {
+			display: block;
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
+
+		.score-card strong {
+			display: block;
+			margin-top: 8px;
+			font-size: 2rem;
+			line-height: 1;
+		}
+
+		.actions {
+			display: flex;
+			gap: 12px;
+			margin-top: 14px;
+			flex-wrap: wrap;
+		}
+
+		.button {
+			border: 1px solid var(--panel-border);
+			background: rgba(30, 41, 59, 0.95);
+			color: var(--text);
+			border-radius: 14px;
+			padding: 12px 16px;
+			font: inherit;
+			cursor: pointer;
+			transition: transform 0.18s ease, border-color 0.18s ease;
+		}
+
+		.button:hover,
+		.button:focus-visible {
+			transform: translateY(-2px);
+			border-color: rgba(251, 113, 133, 0.8);
+			outline: none;
+		}
+
+		.history {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			display: grid;
+			gap: 10px;
+			max-height: 320px;
+			overflow: auto;
+		}
+
+		.history li {
+			border: 1px solid var(--panel-border);
+			background: rgba(2, 6, 23, 0.42);
+			border-radius: 16px;
+			padding: 12px 14px;
+			color: var(--muted);
+			display: flex;
+			justify-content: space-between;
+			gap: 12px;
+		}
+
+		.history b {
+			color: var(--text);
+			font-weight: 600;
+		}
+
+		.win { color: var(--win); }
+		.lose { color: var(--lose); }
+		.draw { color: var(--draw); }
+
+		@media (max-width: 820px) {
+			.content {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 560px) {
+			body {
+				padding: 12px;
+			}
+
+			.hero,
+			.content {
+				padding-left: 18px;
+				padding-right: 18px;
+			}
+
+			.choices,
+			.score-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+<body>
+	<main class="app" aria-label="Rock Paper Scissors game">
+		<section class="hero">
+			<p class="eyebrow">Classic game</p>
+			<h1>Rock Paper Scissors</h1>
+			<p class="subtitle">Pick your move, face the computer, and track your streak. This version is fully self-contained and works directly in the browser.</p>
+		</section>
+
+		<section class="content">
+			<div class="panel">
+				<h2>Choose your move</h2>
+				<p class="subtitle">The computer picks instantly. First to outplay the other wins the round.</p>
+
+				<div class="choices" role="group" aria-label="Game choices">
+					<button class="choice" data-choice="rock" type="button">
+						<div class="emoji">✊</div>
+						<div class="label">Rock</div>
+					</button>
+					<button class="choice" data-choice="paper" type="button">
+						<div class="emoji">✋</div>
+						<div class="label">Paper</div>
+					</button>
+					<button class="choice" data-choice="scissors" type="button">
+						<div class="emoji">✌</div>
+						<div class="label">Scissors</div>
+					</button>
+				</div>
+
+				<div class="status" aria-live="polite">
+					<strong id="resultTitle">Ready to play</strong>
+					<p id="resultText">Select rock, paper, or scissors to start a round.</p>
+				</div>
+			</div>
+
+			<aside class="panel scoreboard">
+				<h2>Scoreboard</h2>
+				<div class="score-grid">
+					<div class="score-card">
+						<span>You</span>
+						<strong id="playerScore">0</strong>
+					</div>
+					<div class="score-card">
+						<span>Computer</span>
+						<strong id="computerScore">0</strong>
+					</div>
+					<div class="score-card">
+						<span>Draws</span>
+						<strong id="drawScore">0</strong>
+					</div>
+				</div>
+
+				<div class="actions">
+					<button class="button" id="resetButton" type="button">Reset scores</button>
+				</div>
+
+				<div>
+					<h2>Recent rounds</h2>
+					<ul class="history" id="history"></ul>
+				</div>
+			</aside>
+		</section>
+	</main>
+
+	<script>
+		const choices = ["rock", "paper", "scissors"];
+		const beats = {
+			rock: "scissors",
+			paper: "rock",
+			scissors: "paper"
+		};
+
+		const state = {
+			player: 0,
+			computer: 0,
+			draws: 0,
+			rounds: []
+		};
+
+		const playerScore = document.getElementById("playerScore");
+		const computerScore = document.getElementById("computerScore");
+		const drawScore = document.getElementById("drawScore");
+		const resultTitle = document.getElementById("resultTitle");
+		const resultText = document.getElementById("resultText");
+		const history = document.getElementById("history");
+		const resetButton = document.getElementById("resetButton");
+
+		function capitalize(word) {
+			return word.charAt(0).toUpperCase() + word.slice(1);
+		}
+
+		function randomChoice() {
+			return choices[Math.floor(Math.random() * choices.length)];
+		}
+
+		function updateScores() {
+			playerScore.textContent = state.player;
+			computerScore.textContent = state.computer;
+			drawScore.textContent = state.draws;
+		}
+
+		function addHistory(playerChoice, computerChoice, outcome) {
+			const item = document.createElement("li");
+			const outcomeClass = outcome === "You win" ? "win" : outcome === "Computer wins" ? "lose" : "draw";
+			item.innerHTML = `<span><b>${capitalize(playerChoice)}</b> vs <b>${capitalize(computerChoice)}</b></span><span class="${outcomeClass}">${outcome}</span>`;
+			history.prepend(item);
+
+			while (history.children.length > 6) {
+				history.removeChild(history.lastElementChild);
+			}
+		}
+
+		function setResult(title, detail, tone) {
+			resultTitle.textContent = title;
+			resultText.textContent = detail;
+			resultTitle.className = tone;
+		}
+
+		function playRound(playerChoice) {
+			const computerChoice = randomChoice();
+
+			if (playerChoice === computerChoice) {
+				state.draws += 1;
+				setResult("It is a draw", `${capitalize(playerChoice)} meets ${capitalize(computerChoice)}. Try again.`, "draw");
+				addHistory(playerChoice, computerChoice, "Draw");
+			} else if (beats[playerChoice] === computerChoice) {
+				state.player += 1;
+				setResult("You win", `${capitalize(playerChoice)} beats ${capitalize(computerChoice)}. Nice move.`, "win");
+				addHistory(playerChoice, computerChoice, "You win");
+			} else {
+				state.computer += 1;
+				setResult("Computer wins", `${capitalize(computerChoice)} beats ${capitalize(playerChoice)}. Try a different choice.`, "lose");
+				addHistory(playerChoice, computerChoice, "Computer wins");
+			}
+
+			updateScores();
+		}
+
+		document.querySelectorAll(".choice").forEach((button) => {
+			button.addEventListener("click", () => playRound(button.dataset.choice));
+		});
+
+		resetButton.addEventListener("click", () => {
+			state.player = 0;
+			state.computer = 0;
+			state.draws = 0;
+			state.rounds = [];
+			history.innerHTML = "";
+			updateScores();
+			setResult("Ready to play", "Select rock, paper, or scissors to start a round.", "");
+		});
+
+		updateScores();
+	</script>
+</body>
+</html>

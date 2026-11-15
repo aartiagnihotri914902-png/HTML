@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Best Friend Day</title>
+</head>
+<body>
+
+<canvas id="myCanvas" width="500" height="500"></canvas>
+
+<script>
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+
+// Background
+ctx.fillStyle = "#ffe6f0";
+ctx.fillRect(0, 0, 500, 500);
+
+// Heart
+ctx.fillStyle = "red";
+ctx.beginPath();
+ctx.moveTo(250, 200);
+ctx.bezierCurveTo(250, 150, 180, 150, 180, 220);
+ctx.bezierCurveTo(180, 280, 250, 330, 250, 330);
+ctx.bezierCurveTo(250, 330, 320, 280, 320, 220);
+ctx.bezierCurveTo(320, 150, 250, 150, 250, 200);
+ctx.fill();
+
+// Message
+ctx.fillStyle = "black";
+ctx.font = "24px Arial";
+ctx.fillText("Happy Best Friend Day!", 110, 400);
+
+ctx.font = "20px Arial";
+ctx.fillText("Thank You For Being My Friend ❤️", 70, 440);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Didi ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Georgia', serif;
+            color: white;
+            background:
+                radial-gradient(circle at top, #663b76, transparent 55%),
+                linear-gradient(135deg, #170d2d, #351638, #190f2e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 70% 20%, #ffd6e7, transparent),
+                radial-gradient(2px 2px at 40% 80%, white, transparent),
+                radial-gradient(2px 2px at 85% 65%, #ffd6e7, transparent);
+            background-size: 250px 250px;
+            animation: twinkle 4s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: .3;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            text-align: center;
+            padding: 45px 25px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 28px;
+            background: rgba(255, 255, 255, .08);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 70px rgba(0, 0, 0, .4);
+            z-index: 2;
+        }
+
+        .small-title {
+            color: #ffc4df;
+            letter-spacing: 5px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 20px 0 10px;
+            font-size: clamp(38px, 8vw, 65px);
+            color: #ffe0ee;
+            text-shadow: 0 0 25px #ff80bc;
+        }
+
+        .name {
+            font-size: 28px;
+            color: #ffd17f;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            color: #f8ddeb;
+            line-height: 1.7;
+        }
+
+        .cake {
+            font-size: 105px;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px #ff80bc66);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .message {
+            margin: 25px auto;
+            padding: 22px;
+            max-width: 480px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, .09);
+            color: #fff1f7;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        button {
+            border: none;
+            padding: 15px 28px;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #ff77ae, #ffbd7b);
+            color: #35132e;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 25px #ff80bc55;
+            transition: .3s;
+        }
+
+        button:hover {
+            transform: scale(1.07);
+            box-shadow: 0 8px 35px #ff80bc99;
+        }
+
+        .hidden-message {
+            display: none;
+            margin-top: 25px;
+            color: #ffe3a8;
+            font-size: 20px;
+            line-height: 1.8;
+            animation: appear 1s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #e7b9d7;
+            font-size: 13px;
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -30px;
+            font-size: 22px;
+            pointer-events: none;
+            animation: rise 7s linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes rise {
+            to {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 9px;
+            height: 14px;
+            top: -20px;
+            z-index: 5;
+            pointer-events: none;
+            animation: fall 4s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .container {
+                padding: 35px 18px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stars"></div>
+
+    <main class="container">
+
+        <div class="small-title">A Special Day • A Special Person</div>
+
+        <h1>Happy Birthday!</h1>
+
+        <div class="name">Dear Didi ❤️</div>
+
+        <p class="subtitle">
+            Today is all about celebrating someone truly wonderful.
+        </p>
+
+        <div class="cake">🎂</div>
+
+        <div class="message">
+            Dear Didi,<br>
+            You are not just my sister, you are my guide,
+            my supporter and one of the most special
+            people in my life. ❤️<br><br>
+
+            May your life always be filled with happiness,
+            beautiful memories, success and endless smiles.
+        </div>
+
+        <button onclick="openSurprise()">
+            ✨ Open Your Surprise ✨
+        </button>
+
+        <div class="hidden-message" id="surprise">
+            🌷 You deserve all the happiness in the world!<br>
+            Keep smiling, keep shining and keep achieving
+            everything you dream of.<br><br>
+
+            Lots of love, Didi! ❤️🥰<br>
+            <span style="font-size:30px">🎁 💐 🎉</span>
+        </div>
+
+        <div class="footer">
+            Made with ❤️ especially for you
+        </div>
+
+    </main>
+
+    <script>
+        function openSurprise() {
+
+            const message = document.getElementById("surprise");
+
+            message.style.display = "block";
+
+            // Create confetti
+            for (let i = 0; i < 120; i++) {
+                const piece = document.createElement("div");
+
+                piece.className = "confetti";
+                piece.style.left = Math.random() * 100 + "vw";
+                piece.style.backgroundColor =
+                    ["#ff79b0", "#ffd166", "#a8e6cf",
+                        "#ffffff", "#cdb4db"][Math.floor(Math.random() * 5)];
+
+                piece.style.animationDelay = Math.random() * 2 + "s";
+
+                document.body.appendChild(piece);
+
+                setTimeout(() => piece.remove(), 6000);
+            }
+        }
+
+        // Floating hearts
+        function createHeart() {
+            const heart = document.createElement("div");
+
+            heart.className = "heart";
+            heart.innerHTML = ["❤️", "💗", "💕", "✨"][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + "vw";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 7000);
+        }
+
+        setInterval(createHeart, 700);
+    </script>
+
+</body>
+
+</html>
